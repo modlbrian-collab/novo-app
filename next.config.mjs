@@ -1,38 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configurações para resolver problemas de fetch e HMR
+  // Configurações básicas para resolver problemas de fetch
   experimental: {
-    // Desabilita o turbopack que pode causar conflitos
     turbo: false,
   },
-  // Configurações de headers para evitar problemas de CORS
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-        ],
-      },
-    ]
-  },
-  // Configurações de imagens para evitar problemas com uploads
+  // Configurações de imagens
   images: {
-    domains: ['localhost'],
     unoptimized: true,
   },
-  // Configurações de webpack para resolver problemas de módulos
+  // Configurações de webpack simplificadas
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {

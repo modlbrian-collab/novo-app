@@ -1,76 +1,82 @@
-interface TechnicalAnalysis {
-  trend: 'ALTA' | 'BAIXA' | 'LATERAL'
-  operation: 'BUY' | 'SELL'
-  confidence: number
-  explanation: string
-  technicalFactors: {
-    priceAction: string
-    candlestickPattern: string
-    supportResistance: string
-    indicators: string
-    volume: string
-  }
+// Simulação de análise de IA para fins educativos
+// Em produção, seria integrada com GPT-4o Vision
+
+interface TechnicalFactors {
+  priceAction: string
+  candlestickPattern: string
+  supportResistance: string
+  indicators: string
+  volume: string
 }
 
-export async function analyzeChartImage(imageFile: File): Promise<TechnicalAnalysis> {
-  // Em produção, esta função faria uma chamada real para GPT-4o Vision
-  // Por enquanto, retorna dados simulados para demonstração
+interface AnalysisData {
+  operation: 'BUY' | 'SELL'
+  trend: 'ALTA' | 'BAIXA' | 'LATERAL'
+  confidence: number
+  explanation: string
+  technicalFactors: TechnicalFactors
+}
+
+// Simula análise de gráfico
+export async function analyzeChartImage(file: File): Promise<AnalysisData> {
+  // Simula tempo de processamento
+  await new Promise(resolve => setTimeout(resolve, 2000))
   
-  const mockAnalyses = [
+  // Análises simuladas para demonstração
+  const analyses: AnalysisData[] = [
     {
-      trend: 'ALTA' as const,
-      operation: 'BUY' as const,
+      operation: 'BUY',
+      trend: 'ALTA',
+      confidence: 85,
+      explanation: 'Padrão de martelo identificado em zona de suporte forte. RSI mostra divergência bullish e volume crescente confirma movimento de alta.',
+      technicalFactors: {
+        priceAction: 'Estrutura de alta com impulso forte e correção saudável',
+        candlestickPattern: 'Martelo em suporte - padrão de reversão bullish',
+        supportResistance: 'Suporte em 1.0850 respeitado, resistência em 1.0920',
+        indicators: 'RSI(14): 35 - sobrevendido, MACD divergência positiva',
+        volume: 'Volume acima da média nas últimas 3 velas'
+      }
+    },
+    {
+      operation: 'SELL',
+      trend: 'BAIXA',
       confidence: 78,
-      explanation: "Padrão de martelo identificado em zona de suporte forte. RSI mostra divergência positiva e volume crescente confirma reversão de tendência.",
+      explanation: 'Padrão de estrela cadente em resistência. Médias móveis em tendência de baixa e volume confirmando pressão vendedora.',
       technicalFactors: {
-        priceAction: "Reversão em suporte de Fibonacci 61.8%",
-        candlestickPattern: "Martelo (Hammer) - Sinal de reversão",
-        supportResistance: "Suporte em 1.0820 / Resistência em 1.0890",
-        indicators: "RSI(14): 32 ↗️ | MACD convergindo | MA20 testando",
-        volume: "Volume 45% acima da média - Forte interesse"
+        priceAction: 'Estrutura de baixa com rompimento de suporte',
+        candlestickPattern: 'Estrela cadente - padrão de reversão bearish',
+        supportResistance: 'Resistência em 1.2650 rejeitada, próximo suporte em 1.2580',
+        indicators: 'RSI(14): 72 - sobrecomprado, Médias em tendência de baixa',
+        volume: 'Volume elevado na rejeição da resistência'
       }
     },
     {
-      trend: 'BAIXA' as const,
-      operation: 'SELL' as const,
-      confidence: 82,
-      explanation: "Padrão de estrela cadente após movimento de alta. Rompimento de linha de tendência com volume confirmativo.",
-      technicalFactors: {
-        priceAction: "Rompimento de linha de tendência ascendente",
-        candlestickPattern: "Estrela Cadente (Shooting Star)",
-        supportResistance: "Resistência em 1.0950 / Suporte em 1.0880",
-        indicators: "RSI(14): 68 ↘️ | MACD divergindo | MA50 como resistência",
-        volume: "Volume 38% acima da média - Pressão vendedora"
-      }
-    },
-    {
-      trend: 'LATERAL' as const,
-      operation: 'BUY' as const,
+      operation: 'BUY',
+      trend: 'LATERAL',
       confidence: 65,
-      explanation: "Consolidação em canal lateral. Preço testando suporte inferior com sinais de reversão técnica.",
+      explanation: 'Mercado em consolidação próximo ao suporte. Padrão de doji indica indecisão, mas contexto favorece alta.',
       technicalFactors: {
-        priceAction: "Teste de suporte em canal lateral",
-        candlestickPattern: "Doji - Indecisão com viés de alta",
-        supportResistance: "Canal: Suporte 1.0840 / Resistência 1.0920",
-        indicators: "RSI(14): 42 | MACD neutro | Bollinger Bands contraindo",
-        volume: "Volume médio - Aguardando definição"
+        priceAction: 'Movimento lateral com teste de suporte',
+        candlestickPattern: 'Doji em suporte - indecisão com viés de alta',
+        supportResistance: 'Range entre 149.20-150.80, testando suporte',
+        indicators: 'RSI neutro em 45, Bollinger Bands contraídas',
+        volume: 'Volume baixo típico de consolidação'
       }
     }
   ]
-
-  // Simula tempo de processamento da IA
-  await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 2000))
-
+  
   // Retorna análise aleatória para demonstração
-  return mockAnalyses[Math.floor(Math.random() * mockAnalyses.length)]
+  const randomIndex = Math.floor(Math.random() * analyses.length)
+  return analyses[randomIndex]
 }
 
+// Calcula horário de entrada (2 minutos após o momento atual)
 export function calculateEntryTime(): string {
   const now = new Date()
-  const entryTime = new Date(now.getTime() + 2 * 60000) // 2 minutos depois
+  const entryTime = new Date(now.getTime() + 2 * 60 * 1000) // +2 minutos
   
-  return entryTime.toLocaleTimeString('pt-BR', { 
-    hour: '2-digit', 
+  return entryTime.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
     minute: '2-digit',
     timeZone: 'America/Sao_Paulo'
   })

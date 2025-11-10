@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef } from 'react'
-import { Upload, Camera, TrendingUp, TrendingDown, Minus, Clock, Target, BarChart3, Activity, Zap, AlertCircle } from 'lucide-react'
+import { Upload, Camera, TrendingUp, TrendingDown, Minus, Clock, Target, BarChart3, Activity, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -182,15 +182,6 @@ export default function TraderEasyAI() {
                   onChange={handleImageUpload}
                   className="hidden"
                 />
-                
-                {/* Aviso sobre análise simulada */}
-                <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm text-yellow-200">
-                    <strong>Demonstração:</strong> Esta versão usa análise simulada para fins educativos. 
-                    Em produção, seria integrada com GPT-4o Vision para análise real de gráficos.
-                  </div>
-                </div>
               </CardContent>
             </Card>
 

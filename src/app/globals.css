@@ -127,4 +127,21 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Hide browser extension attributes */
+  [__processed_8caa0dad-b2fd-44b6-b46d-b32f058f5f2a],
+  [bis_register] {
+    display: contents !important;
+  }
+  
+  /* Normalize extension injected elements */
+  *[__processed_8caa0dad-b2fd-44b6-b46d-b32f058f5f2a="true"] {
+    all: unset;
+    display: contents;
+  }
+  
+  *[bis_register] {
+    all: unset;
+    display: contents;
+  }
 }
